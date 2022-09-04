@@ -1,0 +1,54 @@
+<div *ngIf="!pais==null;else divPais"  class="alert alert-info">
+  Espere por favor
+</div>
+<ng-template #divPais>
+  <div class="row">
+    <div class="col-12">
+    <h1>Pais: <small>{{pais.name}}</small></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+    <h3>Bandera</h3>
+    <img [src]="pais.flag" class="small-flag">
+    </div>
+    <hr>
+    <div class="col">
+      <h3>Información</h3>
+      <ul class="list-group-item">
+        <li class="list-group-item">
+          <strong>{{pais.population |number}}</strong>
+        </li>
+        <h3>Codigo Numerico</h3>
+        <li class="list-group-item">
+          <strong>{{pais.numericCode|number}}</strong>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <h3>Traducciones</h3>
+  <div class="row">
+    <div class="col">
+      <span class="badge bg-primary mr-1">
+        {{pais.translations.de}}
+      </span>
+      <span class="badge bg-primary mr-1">
+        {{pais.translations.es}}
+      </span><span class="badge bg-primary mr-1">
+        {{pais.translations.fr}}
+      </span><span class="badge bg-primary mr-1">
+        {{pais.translations.ja}}
+      </span><span class="badge bg-primary mr-1">
+        {{pais.translations.it}}
+      </span><span class="badge bg-primary mr-1">
+        {{pais.translations.pt}}
+      </span><span class="badge bg-primary mr-1">
+        {{pais.translations.nl}}
+      </span>
+    </div>
+  </div>
+<pre class="mt-5">
+  {{pais | json}}
+</pre>
+</ng-template>
+
