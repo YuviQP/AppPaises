@@ -6,33 +6,52 @@ import { PaisService } from '../../services/pais.service';
 @Component({
   selector: 'app-por-region',
   templateUrl: './por-region.component.html',
-  styleUrls: ['./por-region.component.css']
+  styleUrls: ['./por-region.component.css'],
+  styles:[
+  `  button{
+    margin-right:5px;
+
+  }`
+  ]
 })
 export class PorRegionComponent implements OnInit {
-  termino:string='';
+  regiones: string[] = ['africa', 'americas', 'asia', 'europe', 'oceania'];
+  regionActiva:string='';
+  paises:Country []=[];
   hayError:boolean=false;
-  paises:Country[]=[];
+  constructor(private paisService: PaisService) {}
 
-  constructor( private paisService:PaisService) { }
-
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  activarRegion(region:string){
+  this.regionActiva=region;
+  this.hayError=false;
+  this.regionActiva=region;
+  this.paisService.buscarRegion(this.regionActiva).subscribe(
+    resp=>{
+      this.paises=resp;
+    },(err)=>{
+      this.hayError=true;
+    }
+  );
   }
-  buscar(termino:string){
+
+  getClaseCSS(region:string):String{
+    return (region==this.regionActiva?'btn btn-primary':'btn btn-outline-primary')
+
+  }
+  buscar(region: string) {
+    if(region==this.regionActiva){ return ;}
     this.hayError=false;
-    this.termino=termino;
-    console.log(this.termino)
-    this.paisService.buscarRegion(this.termino).subscribe(
+    this.regionActiva=region;
+    this.paises=[];
+    this.paisService.buscarRegion(this.regionActiva).subscribe(
       resp=>{
         this.paises=resp;
       },(err)=>{
         this.hayError=true;
       }
     );
-
   }
 
-  sugerencias(termino:string){
-    this.hayError=false;
-  }
-
+  sugerencias(termino: string) {}
 }
