@@ -31,10 +31,8 @@ export class PaisInputComponent implements OnInit {
   this.onEnter.emit(this.termino);
   }
 
-  teclaPresionada(event:any){
-    const valor=event.target.value;
-    console.log(valor);
-
+  teclaPresionada(){
+    this.debouncer.next( this.termino );
   }
 
 }
